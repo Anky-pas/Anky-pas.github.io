@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/08/23/%E4%B8%AD%E6%96%87/">
+    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/08/23/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/08/23/%E4%B8%AD%E6%96%87/" class="post-title-link" itemprop="url">简单请求和复杂请求</a>
+            <a href="/2021/08/23/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">简单请求和复杂请求</a>
         </h2>
 
         <div class="post-meta">
@@ -212,7 +212,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-08-23 17:17:11 / 修改时间：18:50:58" itemprop="dateCreated datePublished" datetime="2021-08-23T17:17:11+08:00">2021-08-23</time>
+              <time title="创建时间：2021-08-23 17:17:11 / 修改时间：22:45:03" itemprop="dateCreated datePublished" datetime="2021-08-23T17:17:11+08:00">2021-08-23</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,14 +230,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>208</span>
+              <span>1.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -249,107 +249,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>header里的Content-Type，只能是下列之一</p>
+          <h2 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h2><p>同时满足以下两个条件的是简单请求：</p>
 <ol>
-<li>application/x-www-form-urlencoded</li>
-<li>multipart/form-data</li>
-<li>text/plain</li>
+<li>HTTP方法是head、get、post之一</li>
+<li>HTTP头部信息不超出以下几种字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Accept</span><br><span class="line">Accept-Language</span><br><span class="line">Content-Language</span><br><span class="line">Last-Event-ID</span><br><span class="line">Content-Type </span><br></pre></td></tr></table></figure>
+且Content-Type仅能是下列之一<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-form-urlencoded</span><br><span class="line">multipart/form-data</span><br><span class="line">text/plain</span><br></pre></td></tr></table></figure>
+<h2 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h2>不是简单请求的即为复杂请求<h2 id="简单请求和复杂请求的区别"><a href="#简单请求和复杂请求的区别" class="headerlink" title="简单请求和复杂请求的区别"></a>简单请求和复杂请求的区别</h2>复杂请求在正式请求前会先发送一个预请求，预请求以options形式发送，在CORS（跨域资源共享）中，options头部会包含以下两个特有字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Request-Method – 该项内容是实际请求的类型，如get、post、put、delete等。</span><br><span class="line">Access-Control-Request-Headers – 该项是一个以逗号分隔的列表，当中是复杂请求所使用的头部。</span><br></pre></td></tr></table></figure>
+服务端需要对这两个字段进行回应，若服务端未进行回应，客户端将认为服务器不支持该跨域请求，于是不再发送正式请求。<br/><br>复杂请求的部分响应头及解释如下：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin（必含） – 允许跨域访问的源地址。</span><br><span class="line">Access-Control-Allow-Methods（必含） – 这是对预请求当中Access-Control-Request-Method的回复，这一回复将是一个以逗号分隔的列表。尽管客户端或许只请求某一方法，但服务端仍然可以返回所有允许的方法，以便客户端将其缓存。</span><br><span class="line">Access-Control-Allow-Headers（当预请求中包含Access-Control-Request-Headers时必须包含） – 这是对预请求当中Access-Control-Request-Headers的回复，和上面一样是以逗号分隔的列表，可以返回所有支持的头部。</span><br><span class="line">Access-Control-Allow-Credentials（可选） – 和简单请求当中作用相同。</span><br><span class="line">Access-Control-Max-Age（可选） – 以秒为单位的缓存时间。预请求的的发送并非免费午餐，允许时应当尽可能缓存。</span><br></pre></td></tr></table></figure>
+客户端收到响应后，根据Access-Control-Allow-Origin字段判断服务端是否允许自己跨域访问，根据Access-Control-Allow-Methods字段判断服务端是否允许自己以预请求中Access-Control-Request-Method字段中的请求类型访问，决定是否发送正式请求。<br/><h2 id="一些经验"><a href="#一些经验" class="headerlink" title="一些经验"></a>一些经验</h2></li>
+<li>options无法在Serve中被捕获到，因此不能在Serve中处理，需要在Serve之前的Filter等中处理。</li>
+<li>前端在向后端传送json格式的数据时，习惯将contentType字段的值设置为application/json，导致请求变为复杂请求。</li>
+<li>复杂请求每次在发送正式请求前都要发送预请求，不仅加重了网络负担，也使得客户端得到响应的速度下降，因此，前端应当尽可能避免发送复杂请求。</li>
 </ol>
-<p>一个post请求将其设置成application/json后该post请求变为复杂请求，在正式请求前会向服务器发送一个options确认服务器是否支持跨域以及跨域的方式，所以需要在给options的response的header上也加上</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/08/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="廖仁征">
-      <meta itemprop="description" content="活到老，学到老">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="廖仁征的个人博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/08/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-08-20 16:55:23 / 修改时间：21:38:07" itemprop="dateCreated datePublished" datetime="2021-08-20T16:55:23+08:00">2021-08-20</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>
@@ -431,14 +342,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">1</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -485,7 +396,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1 分钟</span>
+    <span title="站点阅读时长">2 分钟</span>
 </div>
 
         
