@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/02/12/k%E5%8F%89%E2%80%9C%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E2%80%9D/">
+    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -201,7 +201,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2021/02/12/k%E5%8F%89%E2%80%9C%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E2%80%9D/" class="post-title-link" itemprop="url">k叉“哈夫曼树”</a>
+            <a href="/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/" class="post-title-link" itemprop="url">最佳归并树</a>
         </h2>
 
         <div class="post-meta">
@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-05 21:06:16" itemprop="dateModified" datetime="2021-09-05T21:06:16+08:00">2021-09-05</time>
+                <time title="修改时间：2021-09-15 22:55:28" itemprop="dateModified" datetime="2021-09-15T22:55:28+08:00">2021-09-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +236,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>609</span>
+              <span>620</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -255,7 +255,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近碰到一道题：已知三叉树T中6个叶结点的权分别是2，3，4，5，6，7，求T的带权路径长度的最小值。<br><br>看到最短带权路径长度，第一反应是哈夫曼树，但题目中说了是三叉树，而哈夫曼树是二叉树，因此直接套用哈夫曼树显然是是不行的，但可以借鉴哈夫曼树的思想。<br></p>
+          <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近碰到一道题：已知三叉树T中6个叶结点的权分别是2，3，4，5，6，7，求T的带权路径长度的最小值（某年计算机研究生考试真题）。<br><br>看到最短带权路径长度，第一反应是哈夫曼树，但题目中说了是三叉树，而哈夫曼树是二叉树，因此直接套用哈夫曼树显然是是不行的，但可以借鉴哈夫曼树的思想。<br></p>
 <h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><ol>
 <li>将n个结点看作n棵仅含一个结点的二叉树，构成森林F</li>
 <li>构造一个新结点，从F中选取根结点权值最小的两棵二叉树A、B作为新结点的左、右子树形成一颗新的二叉树C，并将树C根结点的权值设为左、右子树根结点权值之和</li>
@@ -263,7 +263,7 @@
 <li>重复步骤2、3直至F中只剩下一颗树</li>
 </ol>
 <p>可以看到，构建哈夫曼树最重要的思想，就是尽可能让权值大的结点靠近根结点，即先合并权值小的结点。<br></p>
-<h2 id="k叉“哈夫曼树”的构建"><a href="#k叉“哈夫曼树”的构建" class="headerlink" title="k叉“哈夫曼树”的构建"></a>k叉“哈夫曼树”的构建</h2><p>先上一个结论：对于含m个叶结点的k叉树，若(m - 1) % (k - 1) = 0，则不需要添加虚结点，否则需要添加(k - 1) - (m - 1) % (k - 1)个虚结点。<br><br>所谓虚结点，就是权值比任何结点都小，但实际建树时不存在的结点。<br><br>于是k叉“哈夫曼树”的构建描述为：<br></p>
+<h2 id="最佳归并树的构建"><a href="#最佳归并树的构建" class="headerlink" title="最佳归并树的构建"></a>最佳归并树的构建</h2><p>先上一个结论：对于含m个叶结点的k叉树，若(m - 1) % (k - 1) = 0，则不需要添加虚结点，否则需要添加(k - 1) - (m - 1) % (k - 1)个虚结点。<br><br>所谓虚结点，就是权值比任何结点都小，但实际建树时不存在的结点。<br><br>于是k叉“哈夫曼树”的构建描述为：<br></p>
 <ol>
 <li>将m个结点看作m棵仅含一个结点的k叉树，构成森林F</li>
 <li>构造一个新结点，从F中选取根结点权值最小的k棵k叉树（若有虚结点，则包含虚结点）作为新结点的子树形成一颗新的k叉树，并将根结点的权值设为所有子树根结点权值之和（求和时将虚结点的权值看作0）</li>
@@ -469,7 +469,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
