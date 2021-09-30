@@ -218,7 +218,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-15 22:55:28" itemprop="dateModified" datetime="2021-09-15T22:55:28+08:00">2021-09-15</time>
+                <time title="修改时间：2021-09-30 22:13:07" itemprop="dateModified" datetime="2021-09-30T22:13:07+08:00">2021-09-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,7 +236,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>620</span>
+              <span>822</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -263,13 +263,14 @@
 <li>重复步骤2、3直至F中只剩下一颗树</li>
 </ol>
 <p>可以看到，构建哈夫曼树最重要的思想，就是尽可能让权值大的结点靠近根结点，即先合并权值小的结点。<br></p>
-<h2 id="最佳归并树的构建"><a href="#最佳归并树的构建" class="headerlink" title="最佳归并树的构建"></a>最佳归并树的构建</h2><p>先上一个结论：对于含m个叶结点的k叉树，若(m - 1) % (k - 1) = 0，则不需要添加虚结点，否则需要添加(k - 1) - (m - 1) % (k - 1)个虚结点。<br><br>所谓虚结点，就是权值比任何结点都小，但实际建树时不存在的结点。<br><br>于是k叉“哈夫曼树”的构建描述为：<br></p>
+<h2 id="最佳归并树的构建"><a href="#最佳归并树的构建" class="headerlink" title="最佳归并树的构建"></a>最佳归并树的构建</h2><p>先上一个结论：对于含m个叶结点的k叉树，若(m - 1) % (k - 1) = 0，则不需要添加虚结点（规范的叫法是虚段），否则需要添加(k - 1) - (m - 1) % (k - 1)个虚结点。<br><br>所谓虚结点，就是权值比任何结点都小，但实际建树时不存在的结点。<br><br>于是k叉“哈夫曼树”的构建描述为：<br></p>
 <ol>
 <li>将m个结点看作m棵仅含一个结点的k叉树，构成森林F</li>
 <li>构造一个新结点，从F中选取根结点权值最小的k棵k叉树（若有虚结点，则包含虚结点）作为新结点的子树形成一颗新的k叉树，并将根结点的权值设为所有子树根结点权值之和（求和时将虚结点的权值看作0）</li>
 <li>从F中删除步骤2中选中的k棵k叉树，并将新的k叉树加入F</li>
 <li>重复步骤2、3直至F中只剩下一颗K树</li>
 </ol>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>在许多应用中，经常需要对大文件进行排序，因为文件过大，无法将整个文件数据读入内存，因此需要将待排序的数据存储在外存，排序时在把数据划分成一块块可以读入内存的数据块读入内存进行归并排序，再将排好序的数据块存储到外存，由于排序过程中需要多次进行内存和外存的交换，而内外存的交换相当耗时，因此需要合理组织待排数据块的归并顺序，使得内存与外存的交换总次数最少，这就需要使用最佳归并树。</p>
 
       
     </div>
@@ -510,7 +511,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">4 分钟</span>
 </div>
 
         
