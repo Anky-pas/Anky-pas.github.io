@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>一些Linux上常用的命令</title>
+      <link href="/2021/02/13/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+      <url>/2021/02/13/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2><p>打开或新建文件：touch 文件名<br/><br>编辑文件：vi 文件名 或 vim 文件名 (vi命令和vim命令在文件不存在时会创建文件)，按a或i进入编辑模式，按Esc进入命令模式<br/><br>当处于命令模式下时，输入</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">:w 保存但不退出</span><br><span class="line">:wq 保存并退出</span><br><span class="line">:q 退出</span><br><span class="line">:e! 放弃所有修改</span><br></pre></td></tr></table></figure><p>移动文件：mv 文件名 要移动到的目录<br/><br>删除文件：rm 文件名<br/><br>远程上传文件：rz<br/><br>新建文件夹：mkdir 文件夹名<br/><br>删除文件夹：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rm -r 文件夹名  //需要一个个确认文件夹中的文件是否要删除</span><br><span class="line">rm -rf 文件夹名 //无需确认，直接删除整个文件夹</span><br></pre></td></tr></table></figure><h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><p>查看正在运行中的进程：ps<br/><br>查看所有进程的详细信息：ps -ef<br/><br>杀死进程：kill 进程id<br/><br>实时动态查看系统运行情况：top<br/><br>不挂断运行某条命令语句（当账户退出或终端关闭时,程序仍然运行）：nohup 命令语句<br/><br>Linux下还有一个特殊的文件/dev/null，它就像一个无底洞，所有重定向到它的信息都会消失得无影无踪。这一点非常有用，当我们不需要回显程序的所有信息时，就可以将输出重定向到/dev/null。<br>由于使用nohup时，会自动将输出写入nohup.out文件中，如果文件很大的话，nohup.out就会不停的增大，这是我们不希望看到的，因此，可以利用/dev/null来解决这个问题。</p><h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>不重启系统使配置文件、环境变量生效：source /etc/profile<br/><br>有时候经常需要修改系统配置文件，但系统上有项目正在运行，每次都重启系统，显然不合适</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 操作系统 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>最佳归并树</title>
       <link href="/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/"/>
       <url>/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/</url>
