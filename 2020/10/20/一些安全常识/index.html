@@ -20,22 +20,20 @@
     var CONFIG = {"hostname":"anky-pas.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="简单请求同时满足以下两个条件的是简单请求：  HTTP方法是head、get、post之一 HTTP头部信息不超出以下几种字段12345AcceptAccept-LanguageContent-LanguageLast-Event-IDContent-Type  且Content-Type仅能是下列之一123application&#x2F;x-www-form-urlencodedmultipart&#x2F;fo">
+  <meta name="description" content="salt(盐值)的正确用法刚开始做web的时候，什么都不懂，只能照葫芦画瓢，跟着网上的博客做，在将用户密码存入数据库时，在用户密码的明文后加上一个固定的盐值，再通过加密算法把它们转换成密文存入数据库。这个学期学了网络安全之后，才发现盐值并不是这么用的。 什么是盐值？通俗地说，盐值就是一个字符串，用来与需要加密的信息（如密码等）组成一个新的字符串，如盐值为“ztgs”，需要加密的信息为“123456">
 <meta property="og:type" content="article">
-<meta property="og:title" content="简单请求和复杂请求">
-<meta property="og:url" content="https://anky-pas.github.io/2020/10/20/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/index.html">
+<meta property="og:title" content="一些安全常识">
+<meta property="og:url" content="https://anky-pas.github.io/2020/10/20/%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/index.html">
 <meta property="og:site_name" content="廖仁征的个人博客">
-<meta property="og:description" content="简单请求同时满足以下两个条件的是简单请求：  HTTP方法是head、get、post之一 HTTP头部信息不超出以下几种字段12345AcceptAccept-LanguageContent-LanguageLast-Event-IDContent-Type  且Content-Type仅能是下列之一123application&#x2F;x-www-form-urlencodedmultipart&#x2F;fo">
+<meta property="og:description" content="salt(盐值)的正确用法刚开始做web的时候，什么都不懂，只能照葫芦画瓢，跟着网上的博客做，在将用户密码存入数据库时，在用户密码的明文后加上一个固定的盐值，再通过加密算法把它们转换成密文存入数据库。这个学期学了网络安全之后，才发现盐值并不是这么用的。 什么是盐值？通俗地说，盐值就是一个字符串，用来与需要加密的信息（如密码等）组成一个新的字符串，如盐值为“ztgs”，需要加密的信息为“123456">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-19T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-09-05T13:11:47.689Z">
+<meta property="article:modified_time" content="2021-10-01T15:31:10.432Z">
 <meta property="article:author" content="廖仁征">
-<meta property="article:tag" content="前端">
-<meta property="article:tag" content="后端">
-<meta property="article:tag" content="CORS">
+<meta property="article:tag" content="web安全">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://anky-pas.github.io/2020/10/20/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/">
+<link rel="canonical" href="https://anky-pas.github.io/2020/10/20/%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/">
 
 
 <script id="page-configurations">
@@ -48,7 +46,7 @@
   };
 </script>
 
-  <title>简单请求和复杂请求 | 廖仁征的个人博客</title>
+  <title>一些安全常识 | 廖仁征的个人博客</title>
   
 
 
@@ -192,7 +190,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2020/10/20/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/">
+    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2020/10/20/%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -205,7 +203,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          简单请求和复杂请求
+          一些安全常识
         </h1>
 
         <div class="post-meta">
@@ -222,7 +220,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-05 21:11:47" itemprop="dateModified" datetime="2021-09-05T21:11:47+08:00">2021-09-05</time>
+                <time title="修改时间：2021-10-01 23:31:10" itemprop="dateModified" datetime="2021-10-01T23:31:10+08:00">2021-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +228,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">网络安全</span></a>
                 </span>
             </span>
 
@@ -240,7 +238,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>962</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -259,25 +257,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h2><p>同时满足以下两个条件的是简单请求：</p>
-<ol>
-<li>HTTP方法是head、get、post之一</li>
-<li>HTTP头部信息不超出以下几种字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Accept</span><br><span class="line">Accept-Language</span><br><span class="line">Content-Language</span><br><span class="line">Last-Event-ID</span><br><span class="line">Content-Type </span><br></pre></td></tr></table></figure>
-且Content-Type仅能是下列之一<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-form-urlencoded</span><br><span class="line">multipart/form-data</span><br><span class="line">text/plain</span><br></pre></td></tr></table></figure>
-<br/></li>
-</ol>
-<h2 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h2><p>不是简单请求的即为复杂请求<br/></p>
-<h2 id="简单请求和复杂请求的区别"><a href="#简单请求和复杂请求的区别" class="headerlink" title="简单请求和复杂请求的区别"></a>简单请求和复杂请求的区别</h2><p>复杂请求在正式请求前会先发送一个预请求，预请求以options形式发送，在CORS（跨域资源共享）中，options头部会包含以下两个特有字段</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Request-Method – 该项内容是实际请求的类型，如get、post、put、delete等。</span><br><span class="line">Access-Control-Request-Headers – 该项是一个以逗号分隔的列表，当中是复杂请求所使用的头部。</span><br></pre></td></tr></table></figure>
-<p>服务端需要对这两个字段进行回应，若服务端未进行回应，客户端将认为服务器不支持该跨域请求，于是不再发送正式请求。<br/><br>复杂请求的部分响应头及解释如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin（必含） – 允许跨域访问的源地址。</span><br><span class="line">Access-Control-Allow-Methods（必含） – 这是对预请求当中Access-Control-Request-Method的回复，这一回复将是一个以逗号分隔的列表。尽管客户端或许只请求某一方法，但服务端仍然可以返回所有允许的方法，以便客户端将其缓存。</span><br><span class="line">Access-Control-Allow-Headers（当预请求中包含Access-Control-Request-Headers时必须包含） – 这是对预请求当中Access-Control-Request-Headers的回复，和上面一样是以逗号分隔的列表，可以返回所有支持的头部。</span><br><span class="line">Access-Control-Allow-Credentials（可选） – 和简单请求当中作用相同。</span><br><span class="line">Access-Control-Max-Age（可选） – 以秒为单位的缓存时间。预请求的的发送并非免费午餐，允许时应当尽可能缓存。</span><br></pre></td></tr></table></figure>
-<p>客户端收到响应后，根据Access-Control-Allow-Origin字段判断服务端是否允许自己跨域访问，根据Access-Control-Allow-Methods字段判断服务端是否允许自己以预请求中Access-Control-Request-Method字段中的请求类型访问，决定是否发送正式请求。<br/></p>
-<h2 id="一些经验"><a href="#一些经验" class="headerlink" title="一些经验"></a>一些经验</h2><ol>
-<li>options无法在Serve中被捕获到，因此不能在Serve中处理，需要在Serve之前的Filter等中处理。</li>
-<li>前端在向后端传送json格式的数据时，习惯将contentType字段的值设置为application/json，导致请求变为复杂请求。</li>
-<li>复杂请求每次在发送正式请求前都要发送预请求，不仅加重了网络负担，也使得客户端得到响应的速度下降，因此，前端应当尽可能避免发送复杂请求。</li>
-</ol>
-
+        <h2 id="salt-盐值-的正确用法"><a href="#salt-盐值-的正确用法" class="headerlink" title="salt(盐值)的正确用法"></a>salt(盐值)的正确用法</h2><p>刚开始做web的时候，什么都不懂，只能照葫芦画瓢，跟着网上的博客做，在将用户密码存入数据库时，在用户密码的明文后加上一个固定的盐值，再通过加密算法把它们转换成密文存入数据库。这个学期学了网络安全之后，才发现盐值并不是这么用的。<br/></p>
+<h3 id="什么是盐值？"><a href="#什么是盐值？" class="headerlink" title="什么是盐值？"></a>什么是盐值？</h3><p>通俗地说，盐值就是一个字符串，用来与需要加密的信息（如密码等）组成一个新的字符串，如盐值为“ztgs”，需要加密的信息为“123456”，那么新的字符串就是”123456ztgs”（当然也可以是“ztgs123456”等，具体组合规则可自行决定）。</p>
+<h3 id="为什么需要使用盐值？"><a href="#为什么需要使用盐值？" class="headerlink" title="为什么需要使用盐值？"></a>为什么需要使用盐值？</h3><p>假设用户的密码是“123456”，且黑客（或者其他有恶意的人）知道我们使用的加密算法（一般我们使用的加密算法都是公开的，只是加密的次数不同），当数据库泄露时，即使用户密码以密文形式存储在数据库上，黑客无法直接知道用户密码，但黑客可以通过把一些常见的密码通过加密算法加密成密文，然后将密文与数据库上存储的密文相比较（即彩虹表攻击），若相同，则几乎就可以确定该用户的密码（不同明文加密出的密文可能相同，但概率极低）。但如果我们使用盐值，如盐值“ztgs”，那么我们需要加密的明文就是“123456ztgs”，存储在数据库中的时“123456ztgs”的密文，当密文一致时，对应的明文并不是用户真正的密码。但像这样使用固定盐值仍然存在隐患，即黑客如果知道盐值（黑客可能是内部人员），那么盐值就失去了作用。</p>
+<h3 id="如何正确使用盐值？"><a href="#如何正确使用盐值？" class="headerlink" title="如何正确使用盐值？"></a>如何正确使用盐值？</h3><p>既然使用固定盐值不够安全，那就使用随机盐值咯。在用户注册时随机生成一个盐值，同时在数据库存储用户信息的表中开辟一个salt字段存储盐值，这样，即使数据库泄露，黑客同时知道用户密码的密文以及用于加密的盐值，破解用户密码的难度仍然大大提升。为什么呢？对于特定的一个用户而言，他的密码可能是常见密码表中的任何一个，因此，为了破解该用户的密码，需要给常见密码表中的每一个密码加上盐值，然后再加密成密文与数据库中存储的该用户的密码密文相比较，假设常见密码表长为100万（实际上远大于100万），数据库中有100万条用户数据，若盐值都不一样，那么黑客需要计算出100万*100万条密文，才能破解数据库中的存储的用户密码，而若使用固定盐值，则只需要计算出100万条密文。</p>
+<h2 id="对称加密和非对称加密"><a href="#对称加密和非对称加密" class="headerlink" title="对称加密和非对称加密"></a>对称加密和非对称加密</h2>
     </div>
 
     
@@ -286,9 +270,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
-              <a href="/tags/%E5%90%8E%E7%AB%AF/" rel="tag"># 后端</a>
-              <a href="/tags/CORS/" rel="tag"># CORS</a>
+              <a href="/tags/web%E5%AE%89%E5%85%A8/" rel="tag"># web安全</a>
           </div>
 
         
@@ -296,13 +278,10 @@
 
         
     <div class="post-nav">
+      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2020/10/20/%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/" rel="prev" title="一些安全常识">
-      <i class="fa fa-chevron-left"></i> 一些安全常识
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/" rel="next" title="最佳归并树">
-      最佳归并树 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/10/20/%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82/" rel="next" title="简单请求和复杂请求">
+      简单请求和复杂请求 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -362,7 +341,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82"><span class="nav-number">1.</span> <span class="nav-text">简单请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">复杂请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E8%AF%B7%E6%B1%82%E5%92%8C%E5%A4%8D%E6%9D%82%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">简单请求和复杂请求的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E7%BB%8F%E9%AA%8C"><span class="nav-number">4.</span> <span class="nav-text">一些经验</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#salt-%E7%9B%90%E5%80%BC-%E7%9A%84%E6%AD%A3%E7%A1%AE%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">salt(盐值)的正确用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%9B%90%E5%80%BC%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是盐值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8%E7%9B%90%E5%80%BC%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">为什么需要使用盐值？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%E7%9B%90%E5%80%BC%EF%BC%9F"><span class="nav-number">1.3.</span> <span class="nav-text">如何正确使用盐值？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">2.</span> <span class="nav-text">对称加密和非对称加密</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
