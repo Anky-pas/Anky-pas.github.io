@@ -20,23 +20,22 @@
     var CONFIG = {"hostname":"anky-pas.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":-1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="背景最近碰到一道题：已知三叉树T中6个叶结点的权分别是2，3，4，5，6，7，求T的带权路径长度的最小值（某年计算机研究生考试真题）。看到最短带权路径长度，第一反应是哈夫曼树，但题目中说了是三叉树，而哈夫曼树是二叉树，因此直接套用哈夫曼树显然是是不行的，但可以借鉴哈夫曼树的思想。 哈夫曼树的构建 将n个结点看作n棵仅含一个结点的二叉树，构成森林F 构造一个新结点，从F中选取根结点权值最小的两棵二叉">
+  <meta name="description" content="如何确定一个链表是否有环？哈希表法显然，借助哈希表可以很简单的判断链表是否有环：每次访问一个结点时，查询该节点是否在哈希表中，如果在，则链表有环，如果不在，则将当前结点存入哈希表，继续访问下一个结点，若不存在下一个结点，则链表无环。这个方法很简单，耗时也低，但是，如果链表很长，那么哈希表就会很大，非常占用内存，这也不太好，如果能使用常数级的辅助空间，那自然是更好的。 快慢指针法想象一下两个人A、B">
 <meta property="og:type" content="article">
-<meta property="og:title" content="最佳归并树">
-<meta property="og:url" content="https://anky-pas.github.io/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/index.html">
+<meta property="og:title" content="Floyd判圈算法（龟兔赛跑算法）">
+<meta property="og:url" content="https://anky-pas.github.io/2021/10/13/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%88%E9%BE%9F%E5%85%94%E8%B5%9B%E8%B7%91%E7%AE%97%E6%B3%95%EF%BC%89/index.html">
 <meta property="og:site_name" content="廖仁征的个人博客">
-<meta property="og:description" content="背景最近碰到一道题：已知三叉树T中6个叶结点的权分别是2，3，4，5，6，7，求T的带权路径长度的最小值（某年计算机研究生考试真题）。看到最短带权路径长度，第一反应是哈夫曼树，但题目中说了是三叉树，而哈夫曼树是二叉树，因此直接套用哈夫曼树显然是是不行的，但可以借鉴哈夫曼树的思想。 哈夫曼树的构建 将n个结点看作n棵仅含一个结点的二叉树，构成森林F 构造一个新结点，从F中选取根结点权值最小的两棵二叉">
+<meta property="og:description" content="如何确定一个链表是否有环？哈希表法显然，借助哈希表可以很简单的判断链表是否有环：每次访问一个结点时，查询该节点是否在哈希表中，如果在，则链表有环，如果不在，则将当前结点存入哈希表，继续访问下一个结点，若不存在下一个结点，则链表无环。这个方法很简单，耗时也低，但是，如果链表很长，那么哈希表就会很大，非常占用内存，这也不太好，如果能使用常数级的辅助空间，那自然是更好的。 快慢指针法想象一下两个人A、B">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-02-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-09-30T14:13:07.566Z">
+<meta property="og:image" content="https://anky-pas.github.io/2021/10/13/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%88%E9%BE%9F%E5%85%94%E8%B5%9B%E8%B7%91%E7%AE%97%E6%B3%95%EF%BC%89/%E6%9F%90%E4%B8%80%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8.jpg">
+<meta property="article:published_time" content="2021-10-12T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-10-13T15:39:43.702Z">
 <meta property="article:author" content="廖仁征">
-<meta property="article:tag" content="树">
-<meta property="article:tag" content="k叉树">
-<meta property="article:tag" content="哈夫曼树">
-<meta property="article:tag" content="最佳归并树">
+<meta property="article:tag" content="-有环链表 -链表">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://anky-pas.github.io/2021/10/13/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%88%E9%BE%9F%E5%85%94%E8%B5%9B%E8%B7%91%E7%AE%97%E6%B3%95%EF%BC%89/%E6%9F%90%E4%B8%80%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8.jpg">
 
-<link rel="canonical" href="https://anky-pas.github.io/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/">
+<link rel="canonical" href="https://anky-pas.github.io/2021/10/13/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%88%E9%BE%9F%E5%85%94%E8%B5%9B%E8%B7%91%E7%AE%97%E6%B3%95%EF%BC%89/">
 
 
 <script id="page-configurations">
@@ -49,7 +48,7 @@
   };
 </script>
 
-  <title>最佳归并树 | 廖仁征的个人博客</title>
+  <title>Floyd判圈算法（龟兔赛跑算法） | 廖仁征的个人博客</title>
   
 
 
@@ -193,7 +192,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/02/12/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/">
+    <link itemprop="mainEntityOfPage" href="https://anky-pas.github.io/2021/10/13/Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%EF%BC%88%E9%BE%9F%E5%85%94%E8%B5%9B%E8%B7%91%E7%AE%97%E6%B3%95%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -206,7 +205,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          最佳归并树
+          Floyd判圈算法（龟兔赛跑算法）
         </h1>
 
         <div class="post-meta">
@@ -215,23 +214,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-02-12 00:00:00" itemprop="dateCreated datePublished" datetime="2021-02-12T00:00:00+08:00">2021-02-12</time>
+              <time title="创建时间：2021-10-13 00:00:00 / 修改时间：23:39:43" itemprop="dateCreated datePublished" datetime="2021-10-13T00:00:00+08:00">2021-10-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-09-30 22:13:07" itemprop="dateModified" datetime="2021-09-30T22:13:07+08:00">2021-09-30</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
                 </span>
             </span>
 
@@ -241,14 +234,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>822</span>
+              <span>925</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -260,22 +253,11 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>最近碰到一道题：已知三叉树T中6个叶结点的权分别是2，3，4，5，6，7，求T的带权路径长度的最小值（某年计算机研究生考试真题）。<br><br>看到最短带权路径长度，第一反应是哈夫曼树，但题目中说了是三叉树，而哈夫曼树是二叉树，因此直接套用哈夫曼树显然是是不行的，但可以借鉴哈夫曼树的思想。<br></p>
-<h2 id="哈夫曼树的构建"><a href="#哈夫曼树的构建" class="headerlink" title="哈夫曼树的构建"></a>哈夫曼树的构建</h2><ol>
-<li>将n个结点看作n棵仅含一个结点的二叉树，构成森林F</li>
-<li>构造一个新结点，从F中选取根结点权值最小的两棵二叉树A、B作为新结点的左、右子树形成一颗新的二叉树C，并将树C根结点的权值设为左、右子树根结点权值之和</li>
-<li>从F中删除A、B，并将C加入F</li>
-<li>重复步骤2、3直至F中只剩下一颗树</li>
-</ol>
-<p>可以看到，构建哈夫曼树最重要的思想，就是尽可能让权值大的结点靠近根结点，即先合并权值小的结点。<br></p>
-<h2 id="最佳归并树的构建"><a href="#最佳归并树的构建" class="headerlink" title="最佳归并树的构建"></a>最佳归并树的构建</h2><p>先上一个结论：对于含m个叶结点的k叉树，若(m - 1) % (k - 1) = 0，则不需要添加虚结点（规范的叫法是虚段），否则需要添加(k - 1) - (m - 1) % (k - 1)个虚结点。<br><br>所谓虚结点，就是权值比任何结点都小，但实际建树时不存在的结点。<br><br>于是k叉“哈夫曼树”的构建描述为：<br></p>
-<ol>
-<li>将m个结点看作m棵仅含一个结点的k叉树，构成森林F</li>
-<li>构造一个新结点，从F中选取根结点权值最小的k棵k叉树（若有虚结点，则包含虚结点）作为新结点的子树形成一颗新的k叉树，并将根结点的权值设为所有子树根结点权值之和（求和时将虚结点的权值看作0）</li>
-<li>从F中删除步骤2中选中的k棵k叉树，并将新的k叉树加入F</li>
-<li>重复步骤2、3直至F中只剩下一颗K树</li>
-</ol>
-<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>在许多应用中，经常需要对大文件进行排序，因为文件过大，无法将整个文件数据读入内存，因此需要将待排序的数据存储在外存，排序时在把数据划分成一块块可以读入内存的数据块读入内存进行归并排序，再将排好序的数据块存储到外存，由于排序过程中需要多次进行内存和外存的交换，而内外存的交换相当耗时，因此需要合理组织待排数据块的归并顺序，使得内存与外存的交换总次数最少，这就需要使用最佳归并树。</p>
+        <h2 id="如何确定一个链表是否有环？"><a href="#如何确定一个链表是否有环？" class="headerlink" title="如何确定一个链表是否有环？"></a>如何确定一个链表是否有环？</h2><h3 id="哈希表法"><a href="#哈希表法" class="headerlink" title="哈希表法"></a>哈希表法</h3><p>显然，借助哈希表可以很简单的判断链表是否有环：每次访问一个结点时，查询该节点是否在哈希表中，如果在，则链表有环，如果不在，则将当前结点存入哈希表，继续访问下一个结点，若不存在下一个结点，则链表无环。<br>这个方法很简单，耗时也低，但是，如果链表很长，那么哈希表就会很大，非常占用内存，这也不太好，如果能使用常数级的辅助空间，那自然是更好的。</p>
+<h3 id="快慢指针法"><a href="#快慢指针法" class="headerlink" title="快慢指针法"></a>快慢指针法</h3><p>想象一下两个人A、B在跑道上跑步，如果A始终跑得比B快，且不停地跑，如果是环形跑道（有环链表），那么A、B必然会相遇，如果是直线跑道（无环链表），那么A最先跑到终点，快慢指针法就是这个思想。A、B两个指针一开始都指向链表头结点，但随后每次A走两步（也可以是三步、四步，比B快就行），B走一步，若A、B相遇，则链表有环，若A走到链表末尾（即访问到空指针），则链表无环。</p>
+<h2 id="如何确定环的起点（终点）？环的长度？"><a href="#如何确定环的起点（终点）？环的长度？" class="headerlink" title="如何确定环的起点（终点）？环的长度？"></a>如何确定环的起点（终点）？环的长度？</h2><p>快慢指针法很省内存，但是不能知道环的起点（也就是链表的尾结点），不知道链表的尾结点，在遍历链表的时候就不知道什么时候该停下来。哈希表法可以很容易地知道尾结点（即第一次出现的重复结点），但比较耗内存，快慢指针法如果也能确定尾结点就好了。</p>
+<h3 id="Floyd-弗洛伊德-判圈算法"><a href="#Floyd-弗洛伊德-判圈算法" class="headerlink" title="Floyd(弗洛伊德)判圈算法"></a>Floyd(弗洛伊德)判圈算法</h3><p>其实上面的快慢指针法就是Floyd判圈算法的一部分，完整的算法是，当快指针A与慢指针B相遇时，让A（或者B）指向链表头结点，然后A、B继续向前走，此时A和B每次都只走一步，当A、B再次相遇时，A、B所处的结点就是链表尾结点（环的起点、终点）。</p>
+<h3 id="Floyd判圈算法的数学证明"><a href="#Floyd判圈算法的数学证明" class="headerlink" title="Floyd判圈算法的数学证明"></a>Floyd判圈算法的数学证明</h3><p>为什么A、B再次相遇时，所处的结点一定是链表尾结点呢？<br>设一有环链表L，L非环部分长度为m，环长为n，初次相遇点是环起点前第k个结点，相遇时A在环内走了a圈，B在环内走了b圈。<br/><br><img src="%E6%9F%90%E4%B8%80%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8.jpg" alt="avatar"><br/><br>于是B走过的总路程S=m+b<em>n+k，则A走过的总路程为2S，且2S=m+a</em>n+k，于是2S-S=S=(a-b)*n，即A、B初次相遇时走过的总路程均为环长n的倍数，此时让A指向链表头结点，当A前进m步时，A处于环起点上，而B也前进m步，此时B的总路程为S+m，又因为S为n的倍数，链表L非环部分长为m，于是B也必然处于环起点上，因此A、B相遇，且相遇点为环起点。</p>
 
     </div>
 
@@ -285,10 +267,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%A0%91/" rel="tag"># 树</a>
-              <a href="/tags/k%E5%8F%89%E6%A0%91/" rel="tag"># k叉树</a>
-              <a href="/tags/%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91/" rel="tag"># 哈夫曼树</a>
-              <a href="/tags/%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91/" rel="tag"># 最佳归并树</a>
+              <a href="/tags/%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8-%E9%93%BE%E8%A1%A8/" rel="tag"># -有环链表 -链表</a>
           </div>
 
         
@@ -297,13 +276,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/10/20/%E4%B8%80%E4%BA%9B%E5%AE%89%E5%85%A8%E5%B8%B8%E8%AF%86/" rel="prev" title="一些安全常识">
-      <i class="fa fa-chevron-left"></i> 一些安全常识
+    <a href="/2021/02/13/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="一些Linux上常用的命令">
+      <i class="fa fa-chevron-left"></i> 一些Linux上常用的命令
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/02/13/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="一些Linux上常用的命令">
-      一些Linux上常用的命令 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -362,7 +338,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%A4%AB%E6%9B%BC%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA"><span class="nav-number">2.</span> <span class="nav-text">哈夫曼树的构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%BD%92%E5%B9%B6%E6%A0%91%E7%9A%84%E6%9E%84%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">最佳归并树的构建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">4.</span> <span class="nav-text">应用场景</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E4%B8%80%E4%B8%AA%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">如何确定一个链表是否有环？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">哈希表法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%AB%E6%85%A2%E6%8C%87%E9%92%88%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">快慢指针法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E7%8E%AF%E7%9A%84%E8%B5%B7%E7%82%B9%EF%BC%88%E7%BB%88%E7%82%B9%EF%BC%89%EF%BC%9F%E7%8E%AF%E7%9A%84%E9%95%BF%E5%BA%A6%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何确定环的起点（终点）？环的长度？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Floyd-%E5%BC%97%E6%B4%9B%E4%BC%8A%E5%BE%B7-%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">Floyd(弗洛伊德)判圈算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Floyd%E5%88%A4%E5%9C%88%E7%AE%97%E6%B3%95%E7%9A%84%E6%95%B0%E5%AD%A6%E8%AF%81%E6%98%8E"><span class="nav-number">2.2.</span> <span class="nav-text">Floyd判圈算法的数学证明</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
