@@ -264,14 +264,14 @@
 <li>HTTP方法是head、get、post之一</li>
 <li>HTTP头部信息不超出以下几种字段<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Accept</span><br><span class="line">Accept-Language</span><br><span class="line">Content-Language</span><br><span class="line">Last-Event-ID</span><br><span class="line">Content-Type </span><br></pre></td></tr></table></figure>
 且Content-Type仅能是下列之一<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">application/x-www-form-urlencoded</span><br><span class="line">multipart/form-data</span><br><span class="line">text/plain</span><br></pre></td></tr></table></figure>
-<br/></li>
+<br></li>
 </ol>
-<h2 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h2><p>不是简单请求的即为复杂请求<br/></p>
+<h2 id="复杂请求"><a href="#复杂请求" class="headerlink" title="复杂请求"></a>复杂请求</h2><p>不是简单请求的即为复杂请求<br></p>
 <h2 id="简单请求和复杂请求的区别"><a href="#简单请求和复杂请求的区别" class="headerlink" title="简单请求和复杂请求的区别"></a>简单请求和复杂请求的区别</h2><p>复杂请求在正式请求前会先发送一个预请求，预请求以options形式发送，在CORS（跨域资源共享）中，options头部会包含以下两个特有字段</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Request-Method – 该项内容是实际请求的类型，如get、post、put、delete等。</span><br><span class="line">Access-Control-Request-Headers – 该项是一个以逗号分隔的列表，当中是复杂请求所使用的头部。</span><br></pre></td></tr></table></figure>
-<p>服务端需要对这两个字段进行回应，若服务端未进行回应，客户端将认为服务器不支持该跨域请求，于是不再发送正式请求。<br/><br>复杂请求的部分响应头及解释如下：</p>
+<p>服务端需要对这两个字段进行回应，若服务端未进行回应，客户端将认为服务器不支持该跨域请求，于是不再发送正式请求。<br><br>复杂请求的部分响应头及解释如下：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Access-Control-Allow-Origin（必含） – 允许跨域访问的源地址。</span><br><span class="line">Access-Control-Allow-Methods（必含） – 这是对预请求当中Access-Control-Request-Method的回复，这一回复将是一个以逗号分隔的列表。尽管客户端或许只请求某一方法，但服务端仍然可以返回所有允许的方法，以便客户端将其缓存。</span><br><span class="line">Access-Control-Allow-Headers（当预请求中包含Access-Control-Request-Headers时必须包含） – 这是对预请求当中Access-Control-Request-Headers的回复，和上面一样是以逗号分隔的列表，可以返回所有支持的头部。</span><br><span class="line">Access-Control-Allow-Credentials（可选） – 和简单请求当中作用相同。</span><br><span class="line">Access-Control-Max-Age（可选） – 以秒为单位的缓存时间。预请求的的发送并非免费午餐，允许时应当尽可能缓存。</span><br></pre></td></tr></table></figure>
-<p>客户端收到响应后，根据Access-Control-Allow-Origin字段判断服务端是否允许自己跨域访问，根据Access-Control-Allow-Methods字段判断服务端是否允许自己以预请求中Access-Control-Request-Method字段中的请求类型访问，决定是否发送正式请求。<br/></p>
+<p>客户端收到响应后，根据Access-Control-Allow-Origin字段判断服务端是否允许自己跨域访问，根据Access-Control-Allow-Methods字段判断服务端是否允许自己以预请求中Access-Control-Request-Method字段中的请求类型访问，决定是否发送正式请求。<br></p>
 <h2 id="一些经验"><a href="#一些经验" class="headerlink" title="一些经验"></a>一些经验</h2><ol>
 <li>options无法在Serve中被捕获到，因此不能在Serve中处理，需要在Serve之前的Filter等中处理。</li>
 <li>前端在向后端传送json格式的数据时，习惯将contentType字段的值设置为application/json，导致请求变为复杂请求。</li>
